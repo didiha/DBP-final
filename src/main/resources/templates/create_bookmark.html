@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>즐겨찾기 생성</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container-fluid mt-3" layout:fragment="content">
+    <h2>즐겨찾기 생성</h2>
+    <form id="createBookmarkForm">
+        <div class="form-group">
+            <label for="memberId">회원 ID</label>
+            <input type="text" class="form-control" id="memberId" name="memberId" placeholder="회원 ID를 입력하세요" required>
+        </div>
+
+        <div class="form-group">
+            <label for="bookmarkName">즐겨찾기 이름</label>
+            <input type="text" class="form-control" id="bookmarkName" name="bookmarkName" placeholder="생성할 즐겨찾기의 이름을 입력하세요" required>
+        </div>
+        <button type="submit" class="btn btn-primary">생성</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#createBookmarkForm').submit(function(event) {
+            event.preventDefault();
+            var memberId = $('#memberId').val();
+            var bookmarkName = $('#bookmarkName').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/bookmark/create/' + memberId,
+                data: JSON.stringify({
+                    bookmarkName: bookmarkName
+                }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json', // 변경된 부분
+                success: function(response) {
+                    window.location.href = '/bookmark/list'; // 리다이렉트 URL 변경
+                },
+                error: function(xhr, status, error) {
+                    alert('즐겨찾기 생성에 실패했습니다: ' + error);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

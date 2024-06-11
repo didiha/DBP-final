@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>즐겨찾기 목록</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid mt-3" layout:fragment="content">
+
+    <h2 class="border-bottom py-2" th:text="${bookmark.bookmarkName}"></h2>
+
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>카페 이름</th>
+            <th>주소</th>
+            <th>전화번호</th>
+            <th>데이터 기준일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bookmarkStore: ${bookmark.bookmarkStores}">
+            <td th:text="${bookmarkStore.store.storeId}"></td>
+            <td th:text="${bookmarkStore.store.storeName}"></td>
+            <td th:text="${bookmarkStore.store.address}"></td>
+            <td th:text="${bookmarkStore.store.phoneNumber}"></td>
+            <td th:text="${bookmarkStore.store.dbDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="my-2">
+        <a th:href="'/bookmark/' + ${bookmark.bookmarkId} + '/addStore'" class="btn btn-primary">즐겨찾기에 카페 추가</a>
+
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+
+</script>
+
+</body>
+</html>

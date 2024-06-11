@@ -1,0 +1,26 @@
+
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<div class="container-fluid mt-3" layout:fragment="content">
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>No.</th>
+            <th>카페 이름</th>
+            <th>주소</th>
+            <th>전화번호</th>
+            <th>데이터 기준일</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td th:text="${store.storeId}"></td>
+            <td th:text="${store.storeName}"></td>
+            <td th:text="${store.address}"></td>
+            <td th:text="${store.phoneNumber}"></td>
+            <td th:text="${store.dbDate}"></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>즐겨찾기에 카페 추가</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid mt-3">
+    <h2>즐겨찾기에 카페 추가</h2>
+    <form id="addStoreForm" method="post">
+        <div class="form-group">
+            <label for="storeInput">카페 ID</label>
+            <input type="text" class="form-control" id="storeInput" placeholder="카페 ID를 입력하세요" required>
+        </div>
+        <input type="hidden" id="storeId" name="storeId">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        <button type="submit" class="btn btn-primary">추가</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#addStoreForm').submit(function(event) {
+            event.preventDefault();
+
+            // 현재 URL에서 bookmarkId 추출
+            var currentUrl = window.location.href;
+            var bookmarkId = currentUrl.split('/').filter(function(part) {
+                return !isNaN(part) && part.length > 0;
+            }).pop();
+
+            var storeId = $('#storeInput').val();
+            $('#storeId').val(storeId);
+
+            $.ajax({
+                type: 'POST',
+                url: '/bookmark/' + bookmarkId + '/addStore/' + storeId,
+                success: function(response) {
+                    // 서버에서 반환된 응답을 사용하여 리다이렉트
+                    window.location.href = response;
+                },
+                error: function(xhr, status, error) {
+                    alert('카페 추가에 실패했습니다: ' + error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

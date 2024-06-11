@@ -1,0 +1,61 @@
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid mt-3" layout:fragment="content">
+    <h2 class="border-bottom py-2" th:text="카페"></h2>
+    <div class="row my-3">
+        <div class="col-6">
+            <a th:href="@{/bookmark/list}" class="btn btn-primary">즐겨찾기 목록</a>
+        </div>
+        <div class="col-6">
+            <form th:action="@{/store/list}" method="get" id="storeForm">
+                <input type="text" id="searchInput2" name="kw" placeholder="검색어를 입력하세요">
+                <button type="button" id="searchButton2">검색</button>
+            </form>
+        </div>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>No.</th>
+            <th>카페 이름</th>
+            <th>주소</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="store: ${storeList}">
+            <td th:text="${store.storeId}"></td>
+            <td>
+                <a th:href="@{|/store/detail/${store.storeId}|}" th:text="${store.storeName}"></a>
+            </td>
+            <td th:text="${store.address}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script layout:fragment="script" type='text/javascript'>
+    const searchInput = document.getElementById('searchInput2');
+    const searchButton = document.getElementById('searchButton2');
+    const storeForm = document.getElementById('storeForm');
+
+    searchButton.addEventListener('click', function() {
+        const keyword = searchInput.value.trim();
+        storeForm.submit();
+    });
+
+    searchInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            const keyword = searchInput.value.trim();
+            storeForm.submit();
+        }
+    });
+</script>
+
+
+
+</body>
+</html>

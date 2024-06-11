@@ -1,0 +1,32 @@
+
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<div class="container-fluid mt-3" layout:fragment="content">
+    <div class="my-3 border-bottom">
+        <div>
+            <h4>회원가입</h4>
+        </div>
+    </div>
+    <!-- 에러 메시지를 표시하는 부분 -->
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <form th:action="@{/member/create}" th:object="${memberForm}" method="post">
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <div class="mb-3">
+            <label for="memberId" class="form-label">사용자ID</label>
+            <input type="text" th:field="*{memberId}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="memberPw" class="form-label">비밀번호</label>
+            <input type="password" th:field="*{memberPw}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">이메일</label>
+            <input type="email" th:field="*{email}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">회원가입</button>
+    </form>
+</div>
+
+</html>

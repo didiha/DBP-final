@@ -1,0 +1,28 @@
+
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<div class="container-fluid mt-3" layout:fragment="content">
+<h2 class="border-bottom py-2" th:text="즐겨찾기"></h2>
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>No.</th>
+            <th>즐겨찾기 이름</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="bookmark, loop: ${bookmarkList}">
+            <td th:text="${loop.count}"></td>
+            <td>
+                <a th:href="@{|/bookmark/detail/${bookmark.bookmarkId}|}" th:text="${bookmark.bookmarkName}"></a>
+            </td>
+    </tr>
+    </tbody>
+</table>
+
+    <div class="my-2">
+        <a th:href="'/bookmark' + '/createBookmark'" class="btn btn-primary">즐겨찾기 생성</a>
+    </div>
+
+</div>
+</html>
